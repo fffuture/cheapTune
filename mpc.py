@@ -8,32 +8,8 @@ BG_COLOR = "#ff7f7f"
 PAD_COLOR = (45,45,45)
 PRESSED_PAD_COLOR = (255,0,0)
 
-def create_buttons():
-    arr = [[],[],[],[]]
-    for x in range(0,4):
-        arr[x] = [pygame.Rect(1+x*10, 1+y*10, 9, 9) for y in range(0,4)]
-    return arr
-
-def load_samples():
-    arr = [['samples/kick1.wav','samples/kick2.wav','samples/kick3.wav','samples/kick4.wav'],
-           ['samples/hihat1.wav','samples/hihat2.wav','samples/tom1.wav','samples/tom2.wav'],
-           ['samples/snare1.wav','samples/snare4.wav','samples/clap.wav','samples/kick7.wav'],
-           ['samples/snare2.wav','samples/snare3.wav','samples/cowbell.wav','samples/kick8.wav']]
-    for x in range(0,4):
-        arr[x] = [pygame.mixer.Sound(arr[x][y]) for y in range(0,4)]
-    return arr
-
-def draw_button(outside, bg, pressed=None):
-    for line in outside:
-        for item in line:
-            if pressed:
-                if (outside.index(line) == pressed[0] and line.index(item) == pressed[1]):
-                    pygame.draw.rect(bg, PRESSED_PAD_COLOR, item)
-                else:
-                    pygame.draw.rect(bg, PAD_COLOR, item)    
-            else:    
-                pygame.draw.rect(bg, PAD_COLOR, item)
 def main():
+    pygame.mixer.pre_init(44100, -16, 1, 512)
     pygame.init()
     screen = pygame.display.set_mode(WINDOW, pygame.NOFRAME)
     bg = pygame.Surface((WIN_WIDTH, WIN_HEIGHT))
@@ -43,12 +19,13 @@ def main():
     buttons = create_buttons()
     samples = load_samples()
 
-    while True:
+    RUN = True
+    while RUN:
         pressed = None
         for e in pygame.event.get():
             if e.type == pygame.KEYDOWN:
                 if e.key == pygame.K_ESCAPE:
-                    raise SystemExit, 'Quit'
+                    RUN = False
                 if e.key == pygame.K_z:
                     pressed = (0,3)
                 if e.key == pygame.K_x:
@@ -88,6 +65,33 @@ def main():
         screen.blit(bg, (0, 0))
         pygame.display.update()
         clock.tick(40)
+
+def create_buttons():
+    arr = [[],[],[],[]]
+    for x in range(0,4):
+        arr[x] = [pygame.Rect(1+x*10, 1+y*10, 9, 9) for y in range(0,4)]
+    return arr
+
+def load_samples():
+    arr = [['samples/kick1.wav','samples/kick2.wav','samples/kick3.wav','samples/kick4.wav'],
+           ['samples/hihat1.wav','samples/hihat2.wav','samples/tom1.wav','samples/tom2.wav'],
+           ['samples/snare1.wav','samples/snare4.wav','samples/clap.wav','samples/kick7.wav'],
+           ['samples/snare2.wav','samples/snare3.wav','samples/cowbell.wav','samples/kick8.wav']]
+    for x in range(0,4):
+        arr[x] = [pygame.mixer.Sound(arr[x][y]) for y in range(0,4)]
+    return arr
+
+def draw_button(outside, bg, pressed=None):
+    for line in outside:
+        for item in line:
+            if pressed:
+                if (outside.index(line) == pressed[0] and line.index(item) == pressed[1]):
+                    pygame.draw.rect(bg, PRESSED_PAD_COLOR, item)
+                else:
+                    pygame.draw.rect(bg, PAD_COLOR, item)    
+            else:    
+                pygame.draw.rect(bg, PAD_COLOR, item)
+
 
 if __name__ == "__main__":
     main()
