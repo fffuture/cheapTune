@@ -17,7 +17,7 @@ MPC inspired, simple implementation of beat-pads with lo-fi samples, written on 
 #### Run
 
 ```
-python2.7 game.py
+$ python2.7 game.py
 ```
 
 #### Keys
