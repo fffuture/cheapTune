@@ -1,3 +1,5 @@
+#! /usr/bin/python2
+
 import pygame
 
 WIN_WIDTH = 41
