@@ -6,7 +6,7 @@
 
 # Cheap Tune
 
-MPC inspired, simple implementation of beat-pads with lo-fi samples, written on Python with [PyGame](https://github.com/pygame/pygame) library.
+MPC beat-pads with lo-fi samples, written on Python with [PyGame](https://github.com/pygame/pygame) library.
 
 #### Deps
 
@@ -32,7 +32,5 @@ $ python2.7 game.py
 [z] [x] [c] [v]
 
 ```
-
-# Have fun.
 
 есть для винды, если надо - скину
